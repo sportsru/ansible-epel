@@ -1,13 +1,11 @@
 ---
-- name: Test andrewrothstein.epel
-  hosts: all
+- hosts: all
+  roles:
+    - role: '{{ playbook_dir }}'
   tasks:
-    - name: Installing andrewrothstein.epel
-      ansible.builtin.include_role:
-        name: '{{ playbook_dir }}'
-    - name: Install an EPEL hosted package
-      become: true
+    - name: install an EPEL package
+      become: yes
       become_user: root
-      ansible.builtin.package:
+      package:
         name: tor
         state: present
